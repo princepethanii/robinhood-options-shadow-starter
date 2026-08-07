@@ -1,0 +1,10 @@
+# Manually curated only. Do not populate this file by scraping websites.
+#
+# Each event uses a local America/Chicago clock and must follow this shape:
+# - date: 2026-08-07
+#   timestamp: "07:30"
+#   event_name: "Example event"
+#   source: "Official publisher"
+#   risk_level: high
+timezone: America/Chicago
+events: []

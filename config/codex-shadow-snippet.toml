@@ -1,0 +1,32 @@
+# Merge these fields into the existing Robinhood MCP block in ~/.codex/config.toml.
+# Do not create a duplicate block.
+
+[mcp_servers."robinhood-trading"]
+url = "https://agent.robinhood.com/mcp/trading"
+auth = "oauth"
+enabled = true
+required = true
+startup_timeout_sec = 20
+tool_timeout_sec = 60
+default_tools_approval_mode = "auto"
+
+enabled_tools = [
+  "get_accounts",
+  "get_portfolio",
+  "get_realized_pnl",
+  "get_pnl_trade_history",
+  "get_equity_historicals",
+  "get_equity_fundamentals",
+  "get_equity_price_book",
+  "get_equity_technical_indicators",
+  "get_indexes",
+  "get_index_quotes",
+  "get_equity_quotes",
+  "get_option_historicals",
+  "get_option_chains",
+  "get_option_instruments",
+  "get_option_quotes",
+  "get_option_positions",
+  "get_option_orders",
+  "review_option_order"
+]

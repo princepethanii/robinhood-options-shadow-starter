@@ -1,0 +1,89 @@
+{
+  "structuredContent": {
+    "data": {
+      "results": [
+        {
+          "quote": {
+            "instrument_id": "00000000-0000-4000-8000-000000000001",
+            "updated_at": "2026-08-06T17:58:10.012834358Z",
+            "bid_price": "0.390000",
+            "bid_size": 512,
+            "ask_price": "0.410000",
+            "ask_size": 487,
+            "break_even_price": "769.410000",
+            "adjusted_mark_price": "0.400000",
+            "mark_price": "0.400000",
+            "high_fill_rate_buy_price": "0.405000",
+            "low_fill_rate_buy_price": "0.400000",
+            "high_fill_rate_sell_price": "0.399000",
+            "low_fill_rate_sell_price": "0.404000",
+            "previous_close_price": "0.320000",
+            "previous_close_date": "2026-08-05",
+            "volume": 380467,
+            "open_interest": 4187,
+            "delta": "0.300000",
+            "gamma": "0.219244",
+            "rho": "0.000565",
+            "theta": "-0.410000",
+            "vega": "0.041833",
+            "implied_volatility": "0.143573",
+            "chance_of_profit_long": "0.300000",
+            "chance_of_profit_short": "0.700000"
+          },
+          "close": {
+            "instrument_id": "00000000-0000-4000-8000-000000000001",
+            "symbol": "SPY",
+            "price": "0.320000",
+            "date": "2026-08-05",
+            "interpolated": false,
+            "source": "market"
+          }
+        },
+        {
+          "quote": {
+            "instrument_id": "00000000-0000-4000-8000-000000000002",
+            "updated_at": "2026-08-06T17:58:09.943360975Z",
+            "bid_price": "0.440000",
+            "bid_size": 682,
+            "ask_price": "0.450000",
+            "ask_size": 484,
+            "break_even_price": "767.550000",
+            "adjusted_mark_price": "0.445000",
+            "mark_price": "0.445000",
+            "high_fill_rate_buy_price": "0.445000",
+            "low_fill_rate_buy_price": "0.440000",
+            "high_fill_rate_sell_price": "0.444000",
+            "low_fill_rate_sell_price": "0.449000",
+            "previous_close_price": "0.370000",
+            "previous_close_date": "2026-08-05",
+            "volume": 651980,
+            "open_interest": 8943,
+            "delta": "-0.363718",
+            "gamma": "0.207887",
+            "rho": "-0.000565",
+            "theta": "-0.450000",
+            "vega": "0.041833",
+            "implied_volatility": "0.145659",
+            "chance_of_profit_long": "0.249730",
+            "chance_of_profit_short": "0.750270"
+          },
+          "close": {
+            "instrument_id": "00000000-0000-4000-8000-000000000002",
+            "symbol": "SPY",
+            "price": "0.370000",
+            "date": "2026-08-05",
+            "interpolated": false,
+            "source": "market"
+          }
+        }
+      ]
+    },
+    "guide": "Sanitized executable option quote market-data fixture."
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "Sanitized executable option quote market data."
+    }
+  ]
+}

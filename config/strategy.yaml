@@ -1,0 +1,51 @@
+mode: shadow
+timezone: America/Chicago
+
+universe:
+  traded_underlying: SPY
+  confirmation_symbols: [QQQ, IWM]
+  volatility_index: VIX
+
+session:
+  opening_range_start: "08:30"
+  opening_range_end: "08:45"
+  earliest_entry: "08:50"
+  latest_entry: "10:30"
+  forced_exit: "14:00"
+
+risk:
+  max_total_debit_usd: 50.0
+  max_contracts: 1
+  max_entries_per_day: 1
+  hypothetical_option_stop_pct: 0.40
+  hypothetical_profit_target_pct: 0.80
+
+signal:
+  bar_interval_minutes: 5
+  breakout_buffer_pct: 0.0005
+  max_breakout_extension_pct: 0.0025
+  require_spy_vwap_confirmation: true
+  require_qqq_vwap_confirmation: true
+  require_retest: true
+  retest_window_minutes: 15
+  volume_multiple_vs_session_median: 1.20
+
+option_selection:
+  allowed_dte: [0, 1]
+  prefer_dte: 1
+  min_abs_delta: 0.25
+  max_abs_delta: 0.45
+  max_premium_per_contract: 0.50
+  require_positive_bid: true
+  max_spread_dollars: 0.05
+  max_spread_pct_of_mid: 0.15
+  min_volume: 100
+  min_open_interest: 500
+  limit_price_improvement_over_mid: 0.01
+  max_quote_age_seconds: 10
+
+execution_simulation:
+  entry_assumption: "min(ask, mid + 0.01)"
+  exit_assumption: "max(bid, mid - 0.01)"
+  unfilled_after_seconds: 30
+  chase_limit_dollars: 0.02

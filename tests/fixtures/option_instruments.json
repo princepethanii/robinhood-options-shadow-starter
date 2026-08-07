@@ -1,0 +1,51 @@
+{
+  "structuredContent": {
+    "data": {
+      "instruments": [
+        {
+          "id": "00000000-0000-4000-8000-000000000001",
+          "chain_id": "00000000-0000-4000-8000-000000000000",
+          "chain_symbol": "SPY",
+          "underlying_type": "equity",
+          "expiration_date": "2026-08-06",
+          "sellout_datetime": "2026-08-06T19:45:00+00:00",
+          "strike_price": "769.0000",
+          "type": "call",
+          "state": "active",
+          "tradability": "tradable",
+          "trade_value_multiplier": "100.0000",
+          "min_ticks": {
+            "above_tick": "0.01",
+            "below_tick": "0.01",
+            "cutoff_price": "0.00"
+          }
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000000002",
+          "chain_id": "00000000-0000-4000-8000-000000000000",
+          "chain_symbol": "SPY",
+          "underlying_type": "equity",
+          "expiration_date": "2026-08-07",
+          "sellout_datetime": "2026-08-07T19:45:00+00:00",
+          "strike_price": "768.0000",
+          "type": "put",
+          "state": "active",
+          "tradability": "tradable",
+          "trade_value_multiplier": "100.0000",
+          "min_ticks": {
+            "above_tick": "0.01",
+            "below_tick": "0.01",
+            "cutoff_price": "0.00"
+          }
+        }
+      ]
+    },
+    "guide": "Sanitized option instrument market-data fixture."
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "Sanitized option instrument market data."
+    }
+  ]
+}

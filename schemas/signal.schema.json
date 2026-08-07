@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["NO_TRADE", "CALL_CANDIDATE", "PUT_CANDIDATE"]
+    },
+    "timestamp_ct": {"type": "string"},
+    "data_fresh": {"type": "boolean"},
+    "underlying": {"type": "string"},
+    "underlying_price": {"type": ["number", "null"]},
+    "opening_range_high": {"type": ["number", "null"]},
+    "opening_range_low": {"type": ["number", "null"]},
+    "vwap": {"type": ["number", "null"]},
+    "confirmation": {
+      "type": "object",
+      "properties": {
+        "spy": {"type": "string"},
+        "qqq": {"type": "string"},
+        "iwm": {"type": "string"}
+      },
+      "required": ["spy", "qqq", "iwm"],
+      "additionalProperties": false
+    },
+    "contract": {
+      "type": ["object", "null"],
+      "properties": {
+        "symbol": {"type": "string"},
+        "option_type": {"type": "string", "enum": ["call", "put"]},
+        "strike": {"type": "number"},
+        "expiration": {"type": "string"},
+        "dte": {"type": "integer"},
+        "bid": {"type": "number"},
+        "ask": {"type": "number"},
+        "mark": {"type": "number"},
+        "delta": {"type": "number"},
+        "volume": {"type": "integer"},
+        "open_interest": {"type": "integer"},
+        "proposed_limit": {"type": "number"},
+        "quantity": {"type": "integer"},
+        "total_debit_usd": {"type": "number"},
+        "max_premium_loss_usd": {"type": "number"},
+        "break_even": {"type": "number"}
+      },
+      "required": [
+        "symbol", "option_type", "strike", "expiration", "dte", "bid", "ask", "mark",
+        "delta", "volume", "open_interest", "proposed_limit", "quantity", "total_debit_usd",
+        "max_premium_loss_usd", "break_even"
+      ],
+      "additionalProperties": false
+    },
+    "hypothetical_stop_price": {"type": ["number", "null"]},
+    "hypothetical_target_price": {"type": ["number", "null"]},
+    "reasons": {"type": "array", "items": {"type": "string"}},
+    "rejections": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": [
+    "decision", "timestamp_ct", "data_fresh", "underlying", "underlying_price",
+    "opening_range_high", "opening_range_low", "vwap", "confirmation", "contract",
+    "hypothetical_stop_price", "hypothetical_target_price", "reasons", "rejections"
+  ],
+  "additionalProperties": false
+}
