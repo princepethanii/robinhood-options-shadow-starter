@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+printf '%s\n' 'BLOCKED: shadow scanner is quarantined pending deterministic-runner remediation.' >&2
+exit 1
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 DATE="$(TZ=America/Chicago date +%F)"

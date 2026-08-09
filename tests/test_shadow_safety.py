@@ -1,12 +1,36 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SHADOW_CONFIG = ROOT / "config" / "codex-shadow-snippet.toml"
 PROMPTS = ROOT / "prompts"
+
+QUARANTINE_MESSAGE = (
+    "BLOCKED: shadow scanner is quarantined pending deterministic-runner remediation."
+)
+RUNNER_MARKERS = {
+    ROOT / "scripts" / "run_shadow.sh": (
+        'mkdir -p "logs/${DATE}"',
+        "cat prompts/03_daily_shadow.md",
+        "codex exec",
+    ),
+    ROOT / "scripts" / "run_shadow_session.sh": (
+        "while true",
+        '"$ROOT/scripts/run_shadow.sh"',
+        'sleep "$WAIT"',
+    ),
+}
+_QUARANTINE_PREAMBLE = (
+    "#!/usr/bin/env bash\n"
+    "set -euo pipefail\n"
+    "\n"
+    f"printf '%s\\n' '{QUARANTINE_MESSAGE}' >&2\n"
+    "exit 1\n"
+)
 
 ALLOWED_TOOLS = (
     "get_equity_historicals",
@@ -305,7 +329,13 @@ def test_daily_shadow_prompt_is_quarantined_pending_runner_remediation() -> None
     text = (PROMPTS / "03_daily_shadow.md").read_text(encoding="utf-8")
     normalized = " ".join(text.casefold().split())
 
-    assert normalized.startswith("# quarantined shadow-scan specification")
+    required_prefix = (
+        "# QUARANTINED SHADOW-SCAN SPECIFICATION\n\n"
+        "DO NOT EXECUTE THIS PROMPT OR USE IT TO INITIATE A SCAN.\n"
+        "It is retained only as a design specification for the future\n"
+        "deterministic-runner remediation."
+    )
+    assert text.startswith(required_prefix)
     assert "do not execute this prompt or use it to initiate a scan" in normalized
     assert "deterministic-runner remediation" in normalized
 
@@ -344,3 +374,36 @@ def test_gitignore_protects_runtime_and_private_local_data() -> None:
     }
 
     assert required <= lines
+
+
+def _assert_runner_has_early_quarantine(path: Path, later_markers: tuple[str, ...]) -> None:
+    text = path.read_text(encoding="utf-8")
+
+    assert QUARANTINE_MESSAGE in text
+    assert text.startswith(_QUARANTINE_PREAMBLE)
+    exit_offset = text.index("exit 1")
+    for marker in later_markers:
+        assert exit_offset < text.index(marker)
+
+
+def test_shadow_runners_exit_before_scan_or_scheduling_code() -> None:
+    for path, later_markers in RUNNER_MARKERS.items():
+        _assert_runner_has_early_quarantine(path, later_markers)
+
+
+def test_shadow_runners_cannot_initiate_a_scan_in_current_phase() -> None:
+    for path, later_markers in RUNNER_MARKERS.items():
+        _assert_runner_has_early_quarantine(path, later_markers)
+
+        completed = subprocess.run(
+            ["/bin/bash", str(path)],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=2,
+        )
+
+        assert completed.returncode == 1
+        assert completed.stdout == ""
+        assert completed.stderr == f"{QUARANTINE_MESSAGE}\n"
