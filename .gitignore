@@ -19,3 +19,26 @@ data/*
 .env.*
 !.env.example
 .envrc
+
+# Private credentials and local Codex state
+credentials
+credentials/
+credentials.*
+secret
+secret.*
+secrets/
+secrets.*
+token
+token.*
+token.json
+tokens.json
+tokens/
+tokens.*
+oauth
+oauth.*
+*.credentials
+*.secret
+*.token
+*.key
+*.pem
+.codex/
