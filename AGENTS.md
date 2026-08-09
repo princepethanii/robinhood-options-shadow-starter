@@ -2,17 +2,26 @@
 
 ## Absolute safety boundary
 
-This repository is SHADOW-ONLY unless the user separately changes both the MCP allow-list and this file.
-Never call `place_option_order`, `place_equity_order`, `cancel_option_order`, or any other brokerage write tool.
-Never submit, modify, cancel, exercise, or queue a live order.
+Current phase: SHADOW-ONLY.
+
+This repository remains SHADOW-ONLY unless the user separately changes both the MCP allow-list and this file.
+Only public market-data retrieval is permitted. Never request or read private brokerage or account data.
+Never review, submit, place, modify, cancel, exercise, or queue an order.
 
 ## Allowed work
 
 - Read repository files.
 - Run tests and local deterministic analysis.
-- Use Robinhood read-only account, market-data, equity, and option tools.
-- Use `review_option_order` only as a non-binding simulation when explicitly requested.
+- Use only the allowlisted Robinhood public equity, index, and option market-data tools.
 - Write normalized data, reports, and logs inside this repository.
+
+The following are prohibited even when a tool is described as read-only:
+
+- Order review, placement, modification, cancellation, exercise, assignment, or submission.
+- Account or account-identifier reads, including balances and buying power.
+- Portfolio, brokerage P&L, position, transaction, order, or order-history reads.
+- Robinhood scanner, scan, or watchlist capabilities.
+- Any brokerage write or mutation capability.
 
 ## Strategy principles
 
@@ -53,12 +62,14 @@ research system using Robinhood MCP market data.
 The system may identify hypothetical CALL_CANDIDATE, PUT_CANDIDATE,
 or NO_TRADE decisions.
 
-It is not currently authorized to place, modify, cancel, exercise,
-or review a live brokerage order.
+It is not currently authorized to review, place, modify, cancel, exercise,
+assign, or submit any brokerage order. It is not authorized to read private
+brokerage data, including accounts, portfolios, P&L, positions, transactions,
+or order history.
 
 ## Current operating phase
 
-Current phase: SHADOW-ONLY RESEARCH.
+Current phase: SHADOW-ONLY.
 
 No live trading is permitted.
 
@@ -68,25 +79,37 @@ out-of-sample evidence supports that conclusion.
 
 ## Non-negotiable brokerage safety rules
 
-- Never call place_option_order.
-- Never call place_equity_order.
-- Never call cancel_option_order.
-- Never call cancel_equity_order.
+- Never call an order-review tool, including review_option_order.
+- Never call an order-placement tool, including place_option_order or place_equity_order.
+- Never call an order-cancellation tool, including cancel_option_order or cancel_equity_order.
 - Never call an exercise or assignment action.
-- Never create or modify Robinhood watchlists or scans.
+- Never read accounts, account identifiers, balances, or buying power.
+- Never read portfolios or brokerage P&L.
+- Never read equity or option positions.
+- Never read transactions, orders, or order history.
+- Never use Robinhood watchlist, scan, or scanner capabilities.
 - Never submit or modify any live brokerage order.
 - Never enable a Robinhood write or mutation tool.
 - Never place a market order.
 - Never hold a hypothetical position through expiration.
 - Never expose account numbers, credentials, OAuth data, tokens,
-  balances, transactions, or private account data in repository files.
-- Do not save raw Robinhood account responses.
+  balances, portfolios, P&L, positions, transactions, orders, or other
+  private brokerage data in repository files.
+- Do not request, receive, print, log, or save private brokerage responses.
 - Missing, stale, malformed, or ambiguous data must produce NO_TRADE.
 - Safety rules take precedence over strategy logic.
 
-Robinhood MCP configuration must expose only the read-only market-data
-tools needed by shadow mode. Brokerage order-placement and cancellation
-tools must remain unavailable.
+Robinhood MCP configuration must expose only these public market-data tools:
+
+- get_equity_historicals
+- get_equity_quotes
+- get_index_quotes
+- get_option_chains
+- get_option_instruments
+- get_option_quotes
+
+Private brokerage reads, order review, order placement, cancellation,
+exercise, scanners, watchlists, and all mutation tools must remain unavailable.
 
 ## Risk limits
 
